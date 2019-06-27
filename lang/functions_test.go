@@ -90,7 +90,7 @@ func TestFunctions(t *testing.T) {
 
 		"basename": {
 			{
-				`basename("testdata/hello.txt")`,
+				`basename("test-fixtures/hello.txt")`,
 				cty.StringVal("hello.txt"),
 			},
 		},
@@ -230,8 +230,8 @@ func TestFunctions(t *testing.T) {
 
 		"dirname": {
 			{
-				`dirname("testdata/hello.txt")`,
-				cty.StringVal("testdata"),
+				`dirname("test-fixtures/hello.txt")`,
+				cty.StringVal("test-fixtures"),
 			},
 		},
 
@@ -847,7 +847,7 @@ func TestFunctions(t *testing.T) {
 	data := &dataForTests{} // no variables available; we only need literals here
 	scope := &Scope{
 		Data:    data,
-		BaseDir: "./testdata/functions-test", // for the functions that read from the filesystem
+		BaseDir: "./test-fixtures/functions-test", // for the functions that read from the filesystem
 	}
 
 	// Check that there is at least one test case for each function, omitting

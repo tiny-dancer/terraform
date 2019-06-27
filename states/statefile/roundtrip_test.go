@@ -16,7 +16,7 @@ import (
 )
 
 func TestRoundtrip(t *testing.T) {
-	const dir = "testdata/roundtrip"
+	const dir = "test-fixtures/roundtrip"
 	entries, err := ioutil.ReadDir(dir)
 	if err != nil {
 		t.Fatal(err)

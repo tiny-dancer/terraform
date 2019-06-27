@@ -13,7 +13,7 @@ import (
 )
 
 func TestConfigSnapshotRoundtrip(t *testing.T) {
-	fixtureDir := filepath.Join("testdata", "test-config")
+	fixtureDir := filepath.Join("test-fixtures", "test-config")
 	loader, err := configload.NewLoader(&configload.Config{
 		ModulesDir: filepath.Join(fixtureDir, ".terraform", "modules"),
 	})

@@ -17,17 +17,17 @@ func TestFile(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
+			cty.StringVal("test-fixtures/hello.txt"),
 			cty.StringVal("Hello World"),
 			false,
 		},
 		{
-			cty.StringVal("testdata/icon.png"),
+			cty.StringVal("test-fixtures/icon.png"),
 			cty.NilVal,
 			true, // Not valid UTF-8
 		},
 		{
-			cty.StringVal("testdata/missing"),
+			cty.StringVal("test-fixtures/missing"),
 			cty.NilVal,
 			true, // no file exists
 		},
@@ -61,25 +61,25 @@ func TestTemplateFile(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
+			cty.StringVal("test-fixtures/hello.txt"),
 			cty.EmptyObjectVal,
 			cty.StringVal("Hello World"),
 			false,
 		},
 		{
-			cty.StringVal("testdata/icon.png"),
+			cty.StringVal("test-fixtures/icon.png"),
 			cty.EmptyObjectVal,
 			cty.NilVal,
 			true, // Not valid UTF-8
 		},
 		{
-			cty.StringVal("testdata/missing"),
+			cty.StringVal("test-fixtures/missing"),
 			cty.EmptyObjectVal,
 			cty.NilVal,
 			true, // no file exists
 		},
 		{
-			cty.StringVal("testdata/hello.tmpl"),
+			cty.StringVal("test-fixtures/hello.tmpl"),
 			cty.MapVal(map[string]cty.Value{
 				"name": cty.StringVal("Jodie"),
 			}),
@@ -87,7 +87,7 @@ func TestTemplateFile(t *testing.T) {
 			false,
 		},
 		{
-			cty.StringVal("testdata/hello.tmpl"),
+			cty.StringVal("test-fixtures/hello.tmpl"),
 			cty.ObjectVal(map[string]cty.Value{
 				"name": cty.StringVal("Jimbo"),
 			}),
@@ -95,13 +95,13 @@ func TestTemplateFile(t *testing.T) {
 			false,
 		},
 		{
-			cty.StringVal("testdata/hello.tmpl"),
+			cty.StringVal("test-fixtures/hello.tmpl"),
 			cty.EmptyObjectVal,
 			cty.NilVal,
 			true, // "name" is missing from the vars map
 		},
 		{
-			cty.StringVal("testdata/func.tmpl"),
+			cty.StringVal("test-fixtures/func.tmpl"),
 			cty.ObjectVal(map[string]cty.Value{
 				"list": cty.ListVal([]cty.Value{
 					cty.StringVal("a"),
@@ -113,13 +113,13 @@ func TestTemplateFile(t *testing.T) {
 			false,
 		},
 		{
-			cty.StringVal("testdata/recursive.tmpl"),
+			cty.StringVal("test-fixtures/recursive.tmpl"),
 			cty.MapValEmpty(cty.String),
 			cty.NilVal,
 			true, // recursive templatefile call not allowed
 		},
 		{
-			cty.StringVal("testdata/list.tmpl"),
+			cty.StringVal("test-fixtures/list.tmpl"),
 			cty.ObjectVal(map[string]cty.Value{
 				"list": cty.ListVal([]cty.Value{
 					cty.StringVal("a"),
@@ -131,7 +131,7 @@ func TestTemplateFile(t *testing.T) {
 			false,
 		},
 		{
-			cty.StringVal("testdata/list.tmpl"),
+			cty.StringVal("test-fixtures/list.tmpl"),
 			cty.ObjectVal(map[string]cty.Value{
 				"list": cty.True,
 			}),
@@ -139,7 +139,7 @@ func TestTemplateFile(t *testing.T) {
 			true, // iteration over non-iterable value
 		},
 		{
-			cty.StringVal("testdata/bare.tmpl"),
+			cty.StringVal("test-fixtures/bare.tmpl"),
 			cty.ObjectVal(map[string]cty.Value{
 				"val": cty.True,
 			}),
@@ -188,7 +188,7 @@ func TestFileExists(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
+			cty.StringVal("test-fixtures/hello.txt"),
 			cty.BoolVal(true),
 			false,
 		},
@@ -198,7 +198,7 @@ func TestFileExists(t *testing.T) {
 			true,
 		},
 		{
-			cty.StringVal("testdata/missing"),
+			cty.StringVal("test-fixtures/missing"),
 			cty.BoolVal(false),
 			false, // no file exists
 		},
@@ -231,17 +231,17 @@ func TestFileBase64(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
+			cty.StringVal("test-fixtures/hello.txt"),
 			cty.StringVal("SGVsbG8gV29ybGQ="),
 			false,
 		},
 		{
-			cty.StringVal("testdata/icon.png"),
+			cty.StringVal("test-fixtures/icon.png"),
 			cty.StringVal("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAq1BMVEX///9cTuVeUeRcTuZcTuZcT+VbSe1cTuVdT+MAAP9JSbZcT+VcTuZAQLFAQLJcTuVcTuZcUuBBQbA/P7JAQLJaTuRcT+RcTuVGQ7xAQLJVVf9cTuVcTuVGRMFeUeRbTeJcTuU/P7JeTeZbTOVcTeZAQLJBQbNAQLNaUORcTeZbT+VcTuRAQLNAQLRdTuRHR8xgUOdgUN9cTuVdTeRdT+VZTulcTuVAQLL///8+GmETAAAANnRSTlMApibw+osO6DcBB3fIX87+oRk3yehB0/Nj/gNs7nsTRv3dHmu//JYUMLVr3bssjxkgEK5CaxeK03nIAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAADoQAAA6EBvJf9gwAAAAd0SU1FB+EEBRIQDxZNTKsAAACCSURBVBjTfc7JFsFQEATQQpCYxyBEzJ55rvf/f0ZHcyQLvelTd1GngEwWycs5+UISyKLraSi9geWKK9Gr1j7AeqOJVtt2XtD1Bchef2BjQDAcCTC0CsA4mihMtXw2XwgsV2sFw812F+4P3y2GdI6nn3FGSs//4HJNAXDzU4Dg/oj/E+bsEbhf5cMsAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTA0LTA1VDE4OjE2OjE1KzAyOjAws5bLVQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wNC0wNVQxODoxNjoxNSswMjowMMLLc+kAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAC3RFWHRUaXRsZQBHcm91cJYfIowAAABXelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeJzj8gwIcVYoKMpPy8xJ5VIAAyMLLmMLEyMTS5MUAxMgRIA0w2QDI7NUIMvY1MjEzMQcxAfLgEigSi4A6hcRdPJCNZUAAAAASUVORK5CYII="),
 			false,
 		},
 		{
-			cty.StringVal("testdata/missing"),
+			cty.StringVal("test-fixtures/missing"),
 			cty.NilVal,
 			true, // no file exists
 		},
@@ -274,7 +274,7 @@ func TestBasename(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
+			cty.StringVal("test-fixtures/hello.txt"),
 			cty.StringVal("hello.txt"),
 			false,
 		},
@@ -317,13 +317,13 @@ func TestDirname(t *testing.T) {
 		Err  bool
 	}{
 		{
-			cty.StringVal("testdata/hello.txt"),
-			cty.StringVal("testdata"),
+			cty.StringVal("test-fixtures/hello.txt"),
+			cty.StringVal("test-fixtures"),
 			false,
 		},
 		{
-			cty.StringVal("testdata/foo/hello.txt"),
-			cty.StringVal("testdata/foo"),
+			cty.StringVal("test-fixtures/foo/hello.txt"),
+			cty.StringVal("test-fixtures/foo"),
 			false,
 		},
 		{

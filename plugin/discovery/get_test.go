@@ -77,21 +77,21 @@ func testDownloadHandler(w http.ResponseWriter, r *http.Request) {
 func testChecksumHandler(w http.ResponseWriter, r *http.Request) {
 	// this exact plugin has a signature and checksum file
 	if r.URL.Path == "/terraform-provider-template/0.1.0/terraform-provider-template_0.1.0_SHA256SUMS" {
-		http.ServeFile(w, r, "testdata/terraform-provider-template_0.1.0_SHA256SUMS")
+		http.ServeFile(w, r, "test-fixtures/checksum/terraform-provider-template_0.1.0_SHA256SUMS")
 		return
 	}
 	if r.URL.Path == "/terraform-provider-template/0.1.0/terraform-provider-template_0.1.0_SHA256SUMS.sig" {
-		http.ServeFile(w, r, "testdata/terraform-provider-template_0.1.0_SHA256SUMS.sig")
+		http.ServeFile(w, r, "test-fixtures/checksum/terraform-provider-template_0.1.0_SHA256SUMS.sig")
 		return
 	}
 
 	// this this checksum file is corrupt and doesn't match the sig
 	if r.URL.Path == "/terraform-provider-badsig/0.1.0/terraform-provider-badsig_0.1.0_SHA256SUMS" {
-		http.ServeFile(w, r, "testdata/terraform-provider-badsig_0.1.0_SHA256SUMS")
+		http.ServeFile(w, r, "test-fixtures/checksum/terraform-provider-badsig_0.1.0_SHA256SUMS")
 		return
 	}
 	if r.URL.Path == "/terraform-provider-badsig/0.1.0/terraform-provider-badsig_0.1.0_SHA256SUMS.sig" {
-		http.ServeFile(w, r, "testdata/terraform-provider-badsig_0.1.0_SHA256SUMS.sig")
+		http.ServeFile(w, r, "test-fixtures/checksum/terraform-provider-badsig_0.1.0_SHA256SUMS.sig")
 		return
 	}
 
@@ -599,7 +599,7 @@ func TestProviderInstallerPurgeUnused(t *testing.T) {
 
 // Test fetching a provider's checksum file while verifying its signature.
 func TestProviderChecksum(t *testing.T) {
-	hashicorpKey, err := ioutil.ReadFile("testdata/hashicorp.asc")
+	hashicorpKey, err := ioutil.ReadFile("test-fixtures/checksum/hashicorp.asc")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -705,7 +705,7 @@ func TestProviderChecksum(t *testing.T) {
 			}
 
 			// get the expected checksum for our os/arch
-			sumData, err := ioutil.ReadFile("testdata/terraform-provider-template_0.1.0_SHA256SUMS")
+			sumData, err := ioutil.ReadFile("test-fixtures/checksum/terraform-provider-template_0.1.0_SHA256SUMS")
 			if err != nil {
 				t.Fatal(err)
 			}
